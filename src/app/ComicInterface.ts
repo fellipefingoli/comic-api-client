@@ -8,13 +8,11 @@ export interface Comic {
   liked: boolean,
   type: 'marvel'
 }
-
+export interface ComicList {
+  comics: Comic[]
+}
 export interface ComicLiked {
   id: number,
   liked: boolean,
   type: 'marvel'
-}
-
-export interface ComicList {
-  comics: Comic[]
 }

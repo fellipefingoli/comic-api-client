@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import comicListReducer from '../features/comic-list/comicListSlice';
+import userSlice from '../features/user/userSlice';
 
 export const store = configureStore({
   reducer: {
-    comicList: comicListReducer
+    comicList: comicListReducer,
+    user: userSlice
   },
 });
 
