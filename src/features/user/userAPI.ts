@@ -1,31 +1,25 @@
-import { UserRequest, UserLogin, User} from '../../app/UserInterface';
+import { UserRequest, UserLogin, UserResponse, User} from '../../app/UserInterface';
+import axios from 'axios';
+
+const COMIC_API_URL = 'http://localhost:3000';
 
 export function createUser(params: UserRequest) {
-  return new Promise<{ data: User }>((resolve) =>
-    setTimeout(() => resolve({
-      data: {
-        email: 'fellipe.fingoli@gmail.com',
-        logged: true
-      }}), 2000)
+  return new Promise<{ data: UserResponse }>((resolve) =>
+    axios.post('/users', params, { baseURL: COMIC_API_URL, headers: {'ACCEPT': 'application/json'} })
+      .then((response) => resolve(response))
   );
 }
 
 export function loginUser(params: UserLogin) {
-  return new Promise<{ data: User }>((resolve) =>
-    setTimeout(() => resolve({
-      data: {
-        email: 'fellipe.fingoli@gmail.com',
-        logged: true
-      }}), 2000)
+  return new Promise<{ data: UserResponse }>((resolve) =>
+    axios.post('/users/login', params, { baseURL: COMIC_API_URL, headers: {'ACCEPT': 'application/json'} })
+      .then((response) => resolve(response))
   );
 }
 
-export function logoutUser(params: User) {
-  return new Promise<{ data: User }>((resolve) =>
-    setTimeout(() => resolve({
-      data: {
-        email: 'fellipe.fingoli@gmail.com',
-        logged: false
-      }}), 2000)
+export function logoutUser() {
+  return new Promise<{ data: UserResponse }>((resolve) =>
+    axios.get('/users/logout', { baseURL: COMIC_API_URL, headers: {'ACCEPT': 'application/json'} })
+      .then((response) => resolve(response))
   );
 }

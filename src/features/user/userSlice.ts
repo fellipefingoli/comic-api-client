@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { User, UserResponse, UserRequest, UserLogin } from '../../app/UserInterface';
+import { User, UserRequest, UserLogin } from '../../app/UserInterface';
 import { createUser, loginUser, logoutUser } from './userAPI';
 
 const initialState: User = {
@@ -26,8 +26,8 @@ export const loginUserAsync = createAsyncThunk(
 
 export const logoutUserAsync = createAsyncThunk(
   'user/logoutUser',
-  async (params: User) => {
-    const response = await logoutUser(params);
+  async () => {
+    const response = await logoutUser();
     return response.data;
   }
 );
@@ -40,16 +40,17 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createUserAsync.fulfilled, (state, action) => {
-        state.email = action.payload.email;
-        state.logged = action.payload.logged;
+        console.log(action.payload);
+        state.email = action.payload.user.email;
+        state.logged = true;
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
-        state.email = action.payload.email;
-        state.logged = action.payload.logged;
+        state.email = action.payload.user.email;
+        state.logged = true;
       })
       .addCase(logoutUserAsync.fulfilled, (state, action) => {
-        state.email = action.payload.email;
-        state.logged = action.payload.logged;
+        state.email = '';
+        state.logged = false;
       })
   },
 });

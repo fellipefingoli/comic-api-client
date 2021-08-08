@@ -45,7 +45,7 @@ export function User() {
           password confirmation:
           <input name='passwordConfirmation' type='password' value={userRequest.passwordConfirmation} onChange={handleChange} />
           <button
-            onClick={() => { dispatch(createUserAsync(userRequest)); showSignIn(false) }}
+            onClick={() => { dispatch(createUserAsync({ user: userRequest })); showSignIn(false) }}
           >Send</button>
         </div>
       )
@@ -60,7 +60,7 @@ export function User() {
         <div>
           <b>User:</b> {user.email}
           <button
-            onClick={() => dispatch(logoutUserAsync(user))}
+            onClick={() => dispatch(logoutUserAsync())}
           >
             Logout
           </button>

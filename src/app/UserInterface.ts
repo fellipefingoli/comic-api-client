@@ -7,9 +7,11 @@ export interface UserResponse {
 }
 
 export interface UserRequest {
-  email: string,
-  password: string,
-  passwordConfirmation: string
+  user: {
+    email: string,
+    password: string,
+    passwordConfirmation: string
+  }
 }
 
 export interface UserLogin {
