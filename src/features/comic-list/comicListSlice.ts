@@ -10,7 +10,9 @@ const initialState: ComicList = {
 export const fetchComicListAsync = createAsyncThunk(
   'comics/fetchComics',
   async (params: any) => {
-    const response = await fetchComicList(params);
+    const response = await fetchComicList({
+      format: 'comic', limit: 25, offset: 0, orderBy: '-onsaleDate', ...params
+    });
     return response.data;
   }
 );
@@ -33,13 +35,13 @@ export const comicListSlice = createSlice({
       .addCase(fetchComicListAsync.fulfilled, (state, action) => {
         state.comics = [
           ...state.comics,
-          ...action.payload
+          ...action.payload.comics
         ]
       })
       .addCase(likeComicAsync.fulfilled, (state, action) => {
-        const comic = state.comics.find((comic) => comic.id === action.payload.id);
+        const comic = state.comics.find((comic) => comic.id === action.payload.comic.id);
         if(!!comic)
-          comic.liked = action.payload.liked;
+          comic.liked = action.payload.comic.liked;
       });
   },
 });

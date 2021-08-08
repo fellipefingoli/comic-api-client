@@ -22,7 +22,7 @@ export function ComicList() {
             <li>{comic.title}</li>
             <li>{comic.description}</li>
             <li>{comic.price}</li>
-            <li>{comic.thumbnail}</li>
+            <li><img src={comic.thumbnail}/></li>
             <li>{comic.date}</li>
             <li>{comic.liked.toString()}</li>
             <li>{comic.type}</li>

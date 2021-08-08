@@ -16,3 +16,8 @@ export interface ComicLiked {
   liked: boolean,
   type: 'marvel'
 }
+
+export interface ComicLikedResponse {
+  comic: ComicLiked
+}
+
