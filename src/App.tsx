@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 
-import { Comic } from './features/comic/Comic';
+import { ComicList } from './features/comic-list/ComicList';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <Comic />
+      <ComicList />
     </div>
   );
 }

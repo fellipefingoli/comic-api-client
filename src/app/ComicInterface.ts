@@ -14,3 +14,7 @@ export interface ComicLiked {
   liked: boolean,
   type: 'marvel'
 }
+
+export interface ComicList {
+  comics: Comic[]
+}
