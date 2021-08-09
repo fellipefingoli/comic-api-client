@@ -32,9 +32,11 @@ export const comicListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // .addCase(fetchComicListAsync.pending, (state) => {
+      //   state.comics = [];
+      // })
       .addCase(fetchComicListAsync.fulfilled, (state, action) => {
         state.comics = [
-          ...state.comics,
           ...action.payload.comics
         ]
       })
