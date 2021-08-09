@@ -3,7 +3,7 @@ import logo from './logo.svg';
 
 import { ComicList } from './features/comic-list/ComicList';
 import { User } from './features/user/User';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (

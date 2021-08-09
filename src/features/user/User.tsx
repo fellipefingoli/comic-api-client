@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { createUserAsync, loginUserAsync, logoutUserAsync, selectUser } from './userSlice';
-import styles from './Comic.module.css';
+import styles from './Comic.module.scss';
 
 export function User() {
   const user = useAppSelector(selectUser);

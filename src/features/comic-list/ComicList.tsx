@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchComicListAsync, likeComicAsync, selectComicList } from './comicListSlice';
-import styles from './Comic.module.css';
+import styles from './Comic.module.scss';
 
 export function ComicList() {
   const comicList = useAppSelector(selectComicList);
