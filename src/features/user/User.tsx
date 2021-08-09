@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { createUserAsync, loginUserAsync, logoutUserAsync, selectUser } from './userSlice';
 import styles from './Comic.module.scss';
-import { Button, Modal, Nav } from 'react-bootstrap';
+import { Button, FloatingLabel, Form, Modal, Nav } from 'react-bootstrap';
 
 export function User() {
   const user = useAppSelector(selectUser);
@@ -29,10 +29,18 @@ export function User() {
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
         <Modal.Body>
-          email:
-          <input name='email' id='html' type='text' value={userLogin.email} onChange={handleChange} />
-          password:
-          <input name='password' type='password' value={userLogin.password} onChange={handleChange} />
+          <Form>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Email address"
+              className="mb-3"
+            >
+              <Form.Control name='email' type="email" placeholder="name@example.com" value={userLogin.email} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingPassword" label="Password">
+              <Form.Control name='password' type="password" placeholder="Password" value={userLogin.password} onChange={handleChange}/>
+            </FloatingLabel>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary"  onClick={loginClose} >Close</Button>
@@ -53,12 +61,21 @@ export function User() {
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          email:
-          <input name='email' type='text' value={userRequest.email} onChange={handleChange} />
-          password:
-          <input name='password' type='password' value={userRequest.password} onChange={handleChange} />
-          password confirmation:
-          <input name='passwordConfirmation' type='password' value={userRequest.passwordConfirmation} onChange={handleChange} />
+          <Form>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Email address"
+              className="mb-3"
+            >
+              <Form.Control name='email' type="email" placeholder="name@example.com" value={userRequest.email} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingPassword1" label="Password">
+              <Form.Control name='password' type="password" placeholder="Password" value={userRequest.password} onChange={handleChange} />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingPassword2" label="Password Confirmation">
+              <Form.Control name='passwordConfirmation' type="password" placeholder="Password Confirmation" value={userRequest.passwordConfirmation} onChange={handleChange} />
+            </FloatingLabel>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary"  onClick={signUpClose} >Close</Button>
@@ -74,7 +91,7 @@ export function User() {
     if (user.logged)
       return (
         <div>
-          <b>User:</b> {user.email}|
+          {user.email}|
           <button
             onClick={() => dispatch(logoutUserAsync())}
           >
