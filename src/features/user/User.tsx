@@ -6,7 +6,7 @@ import styles from './Comic.module.css';
 
 export function User() {
   const user = useAppSelector(selectUser);
-  const [signIn, showSignIn] = useState(false);
+  const [signUp, showSignUp] = useState(false);
   const [logIn, showLogIn] = useState(false);
   const [userRequest, setUserRequest] = useState({email: '', password: '', passwordConfirmation: ''});
   const [userLogin, setUserLogin] = useState({email: '', password: ''});
@@ -34,8 +34,8 @@ export function User() {
   }
   const handleChange = (event: any) => setUserRequest({...userRequest, [event.target.name]: event.target.value});
 
-  const SignIn = () => {
-    if (signIn)
+  const SignUp = () => {
+    if (signUp)
       return (
         <div>
           email:
@@ -45,7 +45,7 @@ export function User() {
           password confirmation:
           <input name='passwordConfirmation' type='password' value={userRequest.passwordConfirmation} onChange={handleChange} />
           <button
-            onClick={() => { dispatch(createUserAsync({ user: userRequest })); showSignIn(false) }}
+            onClick={() => { dispatch(createUserAsync({ user: userRequest })); showSignUp(false) }}
           >Send</button>
         </div>
       )
@@ -74,12 +74,12 @@ export function User() {
           >Login
           </button>|
           <button
-            onClick={() => showSignIn(true) }
+            onClick={() => showSignUp(true) }
           >
             Sign-In
           </button>
           <Login />
-          <SignIn />
+          <SignUp />
         </div>
       )
     }
