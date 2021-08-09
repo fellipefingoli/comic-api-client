@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { fetchComicListAsync, likeComicAsync, selectComicList } from './comicListSlice';
-import styles from './Comic.module.scss';
+import styles from './ComicList.module.scss';
+import { Col, Container, Row } from 'react-bootstrap';
+import heartOff from './heart_off.png';
+import heartOn from './heart_on.png';
 
 export function ComicList() {
   const comicList = useAppSelector(selectComicList);
@@ -13,23 +16,30 @@ export function ComicList() {
       dispatch(fetchComicListAsync({}));
   })
 
+
+  const HeartButton = (props: any) => {
+    if(props.liked) {
+      return <img src={heartOn} />
+    } else {
+      return <img src={heartOff} />
+    }
+  }
+
   return (
-    <div>
-      {comicList.comics.map((comic) => (
-        <div>
-          <ul>
-            <li>{comic.id}</li>
-            <li>{comic.title}</li>
-            <li>{comic.description}</li>
-            <li>{comic.price}</li>
-            <li><img src={comic.thumbnail}/></li>
-            <li>{comic.date}</li>
-            <li>{comic.liked.toString()}</li>
-            <li>{comic.type}</li>
-            <li><button onClick={() => dispatch(likeComicAsync({ id: comic.id, liked: !comic.liked, type: comic.type}))}>Like</button></li>
-          </ul>
-        </div>
-      ))}
-    </div>
+    <Container fluid="md">
+      <Row md={5}>
+        {comicList.comics.map((comic) => (
+          <Col className={styles.comic_container}>
+            <div className={styles.title}>{comic.title}</div>
+            <div><img src={comic.thumbnail} className={styles.thumbnail} /></div>
+            <div
+              className={styles.heart_button}
+              onClick={() => dispatch(likeComicAsync({ id: comic.id, liked: !comic.liked, type: comic.type}))}>
+              <HeartButton liked={comic.liked} />
+            </div>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
