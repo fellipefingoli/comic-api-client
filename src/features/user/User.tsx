@@ -9,8 +9,6 @@ export function User() {
   const user = useAppSelector(selectUser);
   const [signUp, showSignUp] = useState(false);
   const [logIn, showLogIn] = useState(false);
-  const [userRequest, setUserRequest] = useState({email: '', password: '', passwordConfirmation: ''});
-  const [userLogin, setUserLogin] = useState({email: '', password: ''});
 
   const dispatch = useAppDispatch();
 
@@ -21,7 +19,11 @@ export function User() {
   const signUpOpen = () => showSignUp(true);
 
   const Login = () => {
-    const handleChange = (event: any) => setUserLogin({...userLogin, [event.target.name]: event.target.value});
+    let userLogin = {email: '', password: ''};
+
+    const handleChange = (event: any) => {
+      userLogin = {...userLogin, [event.target.name]: event.target.value}
+    }
 
     return (
       <Modal show={logIn} onHide={loginClose}>
@@ -35,10 +37,10 @@ export function User() {
               label="Email address"
               className="mb-3"
             >
-              <Form.Control name='email' type="email" placeholder="name@example.com" value={userLogin.email} onChange={handleChange} />
+              <Form.Control name='email' type="email" placeholder="name@example.com" onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel controlId="floatingPassword" label="Password">
-              <Form.Control name='password' type="password" placeholder="Password" value={userLogin.password} onChange={handleChange}/>
+              <Form.Control name='password' type="password" placeholder="Password" onChange={handleChange}/>
             </FloatingLabel>
           </Form>
         </Modal.Body>
@@ -53,7 +55,11 @@ export function User() {
   }
 
   const SignUp = () => {
-    const handleChange = (event: any) => setUserRequest({...userRequest, [event.target.name]: event.target.value});
+    let userRequest = {email: '', password: '', passwordConfirmation: ''};
+
+    const handleChange = (event: any) => {
+      userRequest = {...userRequest, [event.target.name]: event.target.value}
+    }
 
     return (
       <Modal show={signUp} onHide={signUpClose}>
@@ -62,18 +68,14 @@ export function User() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Email address"
-              className="mb-3"
-            >
-              <Form.Control name='email' type="email" placeholder="name@example.com" value={userRequest.email} onChange={handleChange} />
+            <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
+              <Form.Control name='email' type="email" placeholder="name@example.com" onChange={handleChange} />
             </FloatingLabel>
-            <FloatingLabel controlId="floatingPassword1" label="Password">
-              <Form.Control name='password' type="password" placeholder="Password" value={userRequest.password} onChange={handleChange} />
+            <FloatingLabel controlId="floatingPassword1" label="Password" className="mb-3">
+              <Form.Control name='password' type="password" placeholder="Password" onChange={handleChange} />
             </FloatingLabel>
             <FloatingLabel controlId="floatingPassword2" label="Password Confirmation">
-              <Form.Control name='passwordConfirmation' type="password" placeholder="Password Confirmation" value={userRequest.passwordConfirmation} onChange={handleChange} />
+              <Form.Control name='passwordConfirmation' type="password" placeholder="Password Confirmation" onChange={handleChange} />
             </FloatingLabel>
           </Form>
         </Modal.Body>

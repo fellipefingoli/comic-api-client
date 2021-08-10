@@ -15,7 +15,7 @@ export function ComicList() {
   useEffect(() => {
     if (comicList.comics.length === 0)
       dispatch(fetchComicListAsync({}));
-  })
+  }, [])
 
   useEffect(() => {
     dispatch(fetchComicListAsync(page))
@@ -53,6 +53,7 @@ export function ComicList() {
 
   return (
     <div>
+      <PaginationButtons />
       <Container fluid="md">
         <Row md={5}>
           {comicList.comics.map((comic) => (
