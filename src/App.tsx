@@ -1,21 +1,25 @@
 import React from 'react';
 
+import './App.scss';
+import logo from './marvel_logo.png';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { ComicList } from './features/comic-list/ComicList';
 import { User } from './features/user/User';
-import logo from './marvel_logo.png';
-import './App.scss';
-import { Container, Navbar } from 'react-bootstrap';
+import { CharacterSearch } from './features/character-search/CharacterSearch';
 
 function App() {
 
   const Header = () => {
     return(
-      <Navbar expand="lg" className="header">
+      <Navbar expand="lg" fixed="top" className="header">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo}></img>
           </Navbar.Brand>
           <User />
+          <Nav>
+            <CharacterSearch />
+          </Nav>
         </Container>
       </Navbar>
     )

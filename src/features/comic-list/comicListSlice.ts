@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Comic, ComicList, ComicLiked } from '../../app/ComicInterface';
-import { fetchComicList, likeComic } from './comicListAPI';
+import { fetchComicList, fetchCharacterComicList, likeComic } from './comicListAPI';
 
 const initialState: ComicList = {
   comics: []
@@ -11,6 +11,16 @@ export const fetchComicListAsync = createAsyncThunk(
   'comics/fetchComics',
   async (params: any) => {
     const response = await fetchComicList({
+      format: 'comic', limit: 25, offset: 0, orderBy: '-onsaleDate', ...params
+    });
+    return response.data;
+  }
+);
+
+export const fetchCharacterComicListAsync = createAsyncThunk(
+  'comics/fetchCharacterComics',
+  async (params: any) => {
+    const response = await fetchCharacterComicList({
       format: 'comic', limit: 25, offset: 0, orderBy: '-onsaleDate', ...params
     });
     return response.data;
@@ -36,6 +46,14 @@ export const comicListSlice = createSlice({
         state.comics = [];
       })
       .addCase(fetchComicListAsync.fulfilled, (state, action) => {
+        state.comics = [
+          ...action.payload.comics
+        ]
+      })
+      .addCase(fetchCharacterComicListAsync.pending, (state, action) => {
+        state.comics = [];
+      })
+      .addCase(fetchCharacterComicListAsync.fulfilled, (state, action) => {
         state.comics = [
           ...action.payload.comics
         ]

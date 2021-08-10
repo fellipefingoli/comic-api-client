@@ -121,7 +121,7 @@ export function User() {
   }
 
   return (
-    <Nav className="me-auto">
+    <Nav className="me-auto" >
       <UserInfo />
     </Nav>
   );

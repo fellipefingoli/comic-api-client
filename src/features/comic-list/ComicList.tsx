@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { fetchComicListAsync, likeComicAsync, selectComicList } from './comicListSlice';
+import {
+  fetchComicListAsync,
+  fetchCharacterComicListAsync,
+  likeComicAsync,
+  selectComicList
+} from './comicListSlice';
+
 import styles from './ComicList.module.scss';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import heartOff from './heart_off.png';
 import heartOn from './heart_on.png';
+import { selectCharacterSearch } from '../character-search/characterSearchSlice';
 
 export function ComicList() {
   const comicList = useAppSelector(selectComicList);
+  const characterSearch = useAppSelector(selectCharacterSearch);
   const dispatch = useAppDispatch();
   const [page, setPage] = useState({limit: 25, offset: 0})
 
   useEffect(() => {
-    if (comicList.comics.length === 0)
-      dispatch(fetchComicListAsync({}));
-  }, [])
-
-  useEffect(() => {
-    dispatch(fetchComicListAsync(page))
-  }, [page])
+    if(!!characterSearch.value)
+      dispatch(fetchCharacterComicListAsync({...page, nameStartsWith: characterSearch.value}))
+    else
+      dispatch(fetchComicListAsync(page))
+  }, [page, characterSearch])
 
   const HeartButton = (props: any) => {
     if(props.liked) {
@@ -52,7 +58,7 @@ export function ComicList() {
   }
 
   return (
-    <div>
+    <div className={styles.comic_list_container}>
       <PaginationButtons />
       <Container fluid="md">
         <Row md={5}>

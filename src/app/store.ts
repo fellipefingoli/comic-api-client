@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import comicListReducer from '../features/comic-list/comicListSlice';
+import characterSearchSlice from '../features/character-search/characterSearchSlice';
+import comicListSlice from '../features/comic-list/comicListSlice';
 import userSlice from '../features/user/userSlice';
 
 export const store = configureStore({
   reducer: {
-    comicList: comicListReducer,
-    user: userSlice
+    comicList: comicListSlice,
+    user: userSlice,
+    characterSearch: characterSearchSlice
   },
 });
 
